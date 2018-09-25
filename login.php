@@ -1,16 +1,12 @@
 <?php
-try {
-  $bdd = new PDO('mysql:host=tdllffrcrkdatab.mysql.db;dbname=tdllffrcrkdatab', 'tdllffrcrkdatab', "Jssmbddejsne1995");
-} catch (PDOException $e) {
-    echo 'Connexion échouée : ' . $e->getMessage();
 
-}
+require('connexion.php');
 
-$query = 'SELECT * FROM data1';	
+$query = 'SELECT * FROM datalogin';
 $requete = $bdd->prepare($query);
 $requete->execute();
-$resultat = $requete->fetch(PDO::FETCH_ASSOC);
-  
+$log = $requete->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +25,6 @@ $resultat = $requete->fetch(PDO::FETCH_ASSOC);
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
     <title>Thibaut Le Feuvre - Développement de sites webs responsives</title>
-    <link href="https://github.com/necolas/normalize.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
@@ -37,38 +32,70 @@ $resultat = $requete->fetch(PDO::FETCH_ASSOC);
 	  <link rel="stylesheet" href="styletest.css">
 </head>
 <body>
-<header>
-    <nav>
-      <div class="tooltip">
-        <a href="mailto:tdllefeuvre@gmail.com" class="jello-horizontal btn-contact">
-          <i style="padding-top:0.8rem; font-size:2rem;" class="fa fa-bell-o" aria-hidden="true"></i>
-        </a>
-        <span class="tooltiptext">Me contacter</span>
-      </div>
-      <ul class="summaryclose">
-        <li><a href="#compétences">Compétences</a></li>
-        <li><a href="#fiche-tech">Fiche technique</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="mailto:tdllefeuvre@gmail.com">Par mail</a></li>
-       </ul>
-     </nav>
-    <div class="menu-icon">
-      	<span></span>
-    </div>
-</header>
+  <header>
+      <nav class="">
+        <h1></h1>
+    	</nav>
+  </header>
+
+<style>
+.btn-connect {
+    width: 20rem;
+    display: inline;
+    background-color: #ffffff;
+    color:#000000;
+    border: 0.1rem solid #000000;
+    padding: 1rem;
+}
+
+
+.btn-connect:hover {
+  background-color: #000000;
+  color:#ffffff;
+  border: 0.1rem solid #ffffff;
+  transition: .2s;
+}
+
+.popup {
+ border-radius: 1rem 1rem 1rem 1rem;
+ width:20rem;
+ height:2rem;
+ opacity: 0.7;
+ background-color:#ffffff; 
+ color:#000000;
+ z-index:2;
+ position:absolute;
+ top:10%;
+ right:41%;
+}
+
+.popup {
+ border-radius: 1rem 1rem 1rem 1rem;
+ width:20rem;
+ height:2rem;
+ opacity: 0.7;
+ background-color:#ffffff; 
+ color:#000000;
+ z-index:2;
+ position:absolute;
+ top:10%;
+ right:41.5%;
+}
+</style>
+<?php
+if(isset($_GET['msg'])){
+	echo "<p class='popup'> $_GET[msg]</p>";
+}
+?>
 <main>
-  <article class="bloc-intro">
-  <img class="photo" src="<?= $resultat['picture'] ?>" alt="Photo de profil">
-  <h2><?= $resultat['username'] ?> <?= $resultat['description'] ?></h2>
-
-    <ul class="presentation">
-      <li><a href="<?= $resultat['linkin'] ?>" target="_blank" class="social-link-in"><?= $resultat['linkdescription1'] ?> <i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
-      <li><a href="<?= $resultat['linkcv'] ?>" target="_blank" class="social-link-in"><?= $resultat['linkdescription2'] ?></a></li>
-    </ul>
-
+  <article class="bloc-login">
+    <form action="admin.php" method="POST">
+      <p><?=$log['title2']?> :<input type="text"  name="username" class="input-color"></p>
+      <p><?=$log['title3']?> :<input type="password" name="password" class="input-color"></p>
+      <input type="submit" class="btn-connect" value="<?=$log['btnconnect']?>">
+    </form>
   </article>
 </main>
-
 <?php
 $query = 'SELECT * FROM datafooter';	
 $requete = $bdd->prepare($query);
@@ -79,11 +106,9 @@ $footer = $requete->fetch(PDO::FETCH_ASSOC);
 <footer>
   <div class="bloc-footer">
     <span><?=$footer['sentence']?> <span class="heart">♥</span> par </span><h6 class="footer-title" style="letter-spacing:0.1rem; color:white; padding-bottom:3rem;"><?=$footer['sentence2']?></h6>
-    <a class="code" href="login">©</a><span> <?=$footer['rightsmention']?></span>
+    <a class="code" href="http://tdllf.fr">©</a><span> <?=$footer['rightsmention']?></span>
   </div>
 </footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="js/menu.js"></script>
 </body>
 </html>
 	
