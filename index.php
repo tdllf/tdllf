@@ -1,10 +1,5 @@
 <?php
-try {
-  $bdd = new PDO('mysql:host=tdllffrcrkdatab.mysql.db;dbname=tdllffrcrkdatab', 'tdllffrcrkdatab', "Jssmbddejsne1995");
-} catch (PDOException $e) {
-    echo 'Connexion échouée : ' . $e->getMessage();
-
-}
+require('connexion.php');
 
 $query = 'SELECT * FROM data1';	
 $requete = $bdd->prepare($query);
