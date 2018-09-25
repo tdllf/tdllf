@@ -31,25 +31,4 @@ $msg = 'Echec de la requête';
 }
 header('location:login.php?msg='.$msg);
 
-
-
-//if($result_ajout === true){
-//$msg = '<p class="popup" style=">Requête réussie</p>';
-//}else{
-//$msg = '<p class="popup">Echec de la requête</p>';
-//}
-//header('location:login.php?msg='.$msg);
-
-
-//var_dump($result_ajout);
-//$affiche = $bdd->prepare(
-//	"SELECT title, content, date FROM article WHERE id=6");
-//$affiche->execute();
-//$res = $affiche->fetchAll(PDO::FETCH_ASSOC);
-//var_dump($res);
- 
-
-
-
-
- ?>
+?>
